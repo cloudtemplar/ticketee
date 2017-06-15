@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  username: *your username*
+  password: *your password*
+
+development:
+  <<: *default
+  database: ticketee_development
+
+test:
+  <<: *default
+  database: ticketee_test
+
+production:
+  <<: *default
+  database: ticketee_production
+  username: ticketee
+  password: <%= ENV['TICKETEE_DATABASE_PASSWORD'] %>
