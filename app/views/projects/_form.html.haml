@@ -1,10 +1,12 @@
 = form_for @project do |f|
   %p
     = f.label :name
+    %br/
     = f.text_field :name
 
   %p
     = f.label :description
+    %br/
     = f.text_field :description
 
   = f.submit
