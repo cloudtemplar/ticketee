@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_project
 
   def index
     @projects = Project.all
@@ -45,6 +46,12 @@ class ProjectsController < ApplicationController
 
     def set_project
       @project = Project.find(params[:id])
+    end
+
+    def invalid_project
+      logger.error "Attempt to access invalid project -> #{params[:id]}"
+      redirect_to projects_url,
+        alert: 'The project you were looking for could not be found.'
     end
 
     def project_params
