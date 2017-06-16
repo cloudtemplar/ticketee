@@ -2,12 +2,27 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
     = render 'layouts/title'
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    - flash.each do |type, msg|
-      %div= msg
+    %nav.navbar.navbar-default.navbar-fixed-top{role: 'navigation'}
+      .container
+        .navbar-header
+          = link_to 'Ticketee', root_path, class: 'navbar-brand'
+          %button.navbar-toggle.collapsed{"data-target" => "#collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+        #collapse.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li= link_to "Home", root_path
 
-    = yield
+    .container
+      - flash.each do |msg_type, msg|
+        = content_tag(:div, msg, class: "alert alert-#{msg_type}")
+
+      = yield

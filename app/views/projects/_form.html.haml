@@ -1,21 +1,5 @@
-= form_for project do |f|
-  - if project.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(project.errors.count, 'error')
-        prohibited this project from being saved:
-      %ul
-        - project.errors.full_messages.each do |msg|
-          %li= msg
+= simple_form_for project do |f|
+  = f.input :name
+  = f.input :description
 
-  %p
-    = f.label :name
-    %br/
-    = f.text_field :name
-
-  %p
-    = f.label :description
-    %br/
-    = f.text_field :description
-
-  = f.submit
+  = f.button :submit, class: 'btn-primary'
