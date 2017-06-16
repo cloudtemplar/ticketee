@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show]
+  before_action :set_project, only: [:show, :edit, :update]
 
   def index
     @projects = Project.all
@@ -12,6 +12,9 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def edit
+  end
+
   def create
     @project = Project.new(project_params)
 
@@ -20,6 +23,15 @@ class ProjectsController < ApplicationController
     else
       flash.now[:alert] = 'Project has not been created.'
       render :new
+    end
+  end
+
+  def update
+    if @project.update(project_params)
+      redirect_to @project, notice: 'Project has been updated.'
+    else
+      flash.now[:alert] = 'Project has not been updated.'
+      render :edit
     end
   end
 
