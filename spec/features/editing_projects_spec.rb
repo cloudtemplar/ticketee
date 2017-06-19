@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Users can edit existing projects' do
-  before do
-    @project = FactoryGirl.create(:project, name: 'Catbook')
+  let!(:project) { FactoryGirl.create(:project, name: 'Catbook') }
 
+  before do
     visit '/'
     click_link 'Catbook'
     click_link 'Edit Project'
@@ -14,7 +14,7 @@ RSpec.feature 'Users can edit existing projects' do
     click_button 'Update Project'
 
     expect(page).to have_content 'Project has been updated.'
-    expect(page.current_url).to eq project_url(@project)
+    expect(page.current_url).to eq project_url(project)
     expect(page).to have_content 'Kittybook'
   end
 
