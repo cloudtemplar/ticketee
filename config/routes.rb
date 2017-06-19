@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   namespace :admin do
     root 'application#index'
+
+    resources :projects, only: [:new, :create, :destroy]
   end
 
-  resources :projects do
+  resources :projects, except: [:new, :create, :destroy] do
     resources :tickets
   end
 
