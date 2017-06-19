@@ -20,6 +20,7 @@
         #collapse.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li= link_to "Home", root_path
+            %li= link_to 'Sign up', new_user_registration_path
 
     .container
       - flash.each do |msg_type, msg|
