@@ -30,6 +30,10 @@ header {
   &:first-child {
     margin-top: 20px;
   }
+
+  .actions {
+    @extend .list-inline;
+  }
 }
 
 a.new, a.edit, a.delete {
