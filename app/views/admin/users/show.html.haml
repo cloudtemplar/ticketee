@@ -1,0 +1,6 @@
+%header
+  %h1= @user
+
+  %ul.actions
+    %li
+      = link_to 'Edit User', [:edit, :admin, @user], class: 'edit'
