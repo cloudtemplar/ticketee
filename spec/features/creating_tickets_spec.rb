@@ -6,6 +6,7 @@ RSpec.feature "Users can create new tickets" do
 
   before do
     login_as(user)
+    assign_role!(user, :viewer, project)
     visit project_path(project)
     click_link 'New Ticket'
   end
