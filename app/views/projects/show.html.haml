@@ -3,7 +3,8 @@
 %header
   %h1= @project.name
   %ul.actions
-    %li= link_to 'Edit Project', edit_project_path(@project), class: 'edit'
+    - if policy(@project).update?
+      %li= link_to 'Edit Project', edit_project_path(@project), class: 'edit'
     - admins_only do
       %li= link_to 'Delete Project', admin_project_path(@project),
               method: :delete,
