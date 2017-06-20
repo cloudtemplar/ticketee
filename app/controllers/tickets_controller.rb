@@ -4,6 +4,7 @@ class TicketsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_ticket
 
   def show
+    authorize @ticket, :show?
   end
 
   def new

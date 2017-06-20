@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ProjectPolicy do
-  subject { described_class }
-
   context 'policy_scope' do
     subject { Pundit.policy_scope(user, Project) }
 
@@ -28,73 +26,54 @@ RSpec.describe ProjectPolicy do
     end
   end
 
-  permissions :show? do
-    let(:user)    { FactoryGirl.create :user }
-    let(:project) { FactoryGirl.create :project }
+  context 'permissions' do
+    subject { ProjectPolicy.new(user, project) }
 
-    it 'block anonymous users' do
-      expect(subject).to_not permit(nil, project)
+    let(:user) { FactoryGirl.create(:user) }
+    let(:project) { FactoryGirl.create(:project) }
+
+    context 'for anonymous users' do
+      let(:user) { nil }
+
+      it { is_expected.to_not permit_action :show }
+      it { is_expected.to_not permit_action :update }
     end
 
-    it 'allows viewers of the project' do
-      assign_role!(user, :viewer, project)
-      expect(subject).to permit(user, project)
+    context 'for viewers of the project' do
+      before { assign_role!(user, :viewer, project) }
+
+      it { is_expected.to permit_action :show }
+      it { is_expected.to_not permit_action :update }
     end
 
-    it 'allows editors of the project' do
-      assign_role!(user, :editor, project)
-      expect(subject).to permit(user, project)
+    context 'for editors of the project' do
+      before { assign_role!(user, :editor, project) }
+
+      it { is_expected.to permit_action :show }
+      it { is_expected.to_not permit_action :update }
     end
 
-    it 'allows managers of the project' do
-      assign_role!(user, :manager, project)
-      expect(subject).to permit(user, project)
+    context 'for managers of the project' do
+      before { assign_role!(user, :manager, project) }
+
+      it { is_expected.to permit_action :show }
+      it { is_expected.to permit_action :update }
     end
 
-    it 'allows viewers of the project' do
-      admin = FactoryGirl.create :user, :admin
-      expect(subject).to permit(admin, project)
+    context 'for managers of other projects' do
+      before do
+        assign_role!(user, :manager, FactoryGirl.create(:project))
+      end
+
+      it { is_expected.to_not permit_action :show }
+      it { is_expected.to_not permit_action :update }
     end
 
-    it 'doesn\'t allow users assigned to other projects' do
-      other_project = FactoryGirl.create :project
-      assign_role!(user, :manager, other_project)
-      expect(subject).to_not permit(user, project)
-    end
-  end
+    context 'for administrators' do
+      let(:user) { FactoryGirl.create :user, :admin }
 
-  permissions :update? do
-    let(:user)    { FactoryGirl.create :user }
-    let(:project) { FactoryGirl.create :project }
-
-    it 'block anonymous users' do
-      expect(subject).to_not permit(nil, project)
-    end
-
-    it "doesn't allow viewers of the project" do
-      assign_role!(user, :viewer, project)
-      expect(subject).to_not permit(user, project)
-    end
-
-    it "doesn't allow editors of the project" do
-      assign_role!(user, :editor, project)
-      expect(subject).to_not permit(user, project)
-    end
-
-    it 'allows managers of the project' do
-      assign_role!(user, :manager, project)
-      expect(subject).to permit(user, project)
-    end
-
-    it 'allows viewers of the project' do
-      admin = FactoryGirl.create :user, :admin
-      expect(subject).to permit(admin, project)
-    end
-
-    it 'doesn\'t allow users assigned to other projects' do
-      other_project = FactoryGirl.create :project
-      assign_role!(user, :manager, other_project)
-      expect(subject).to_not permit(user, project)
-    end
+      it { is_expected.to permit_action :show }
+      it { is_expected.to permit_action :update }
+    end    
   end
 end
