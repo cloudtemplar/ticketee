@@ -14,4 +14,10 @@ RSpec.feature "Users can view projects" do
     click_link 'Catbook'
     expect(page.current_url).to eq project_url(project)
   end
+
+  scenario 'unless they have permission' do
+    FactoryGirl.create(:project, name: 'Hidden')
+    visit '/'
+    expect(page).to_not have_content 'Hidden'
+  end
 end

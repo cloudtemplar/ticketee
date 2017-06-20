@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_project
 
   def index
-    @projects = Project.all
+    @projects = policy_scope(Project)
   end
 
   def show
