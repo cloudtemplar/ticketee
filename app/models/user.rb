@@ -11,4 +11,14 @@ class User < ApplicationRecord
   def archive
     self.update(archived_at: Time.now)
   end
+
+  # Overwrite Devise's default method.
+  def active_for_authentication?
+    super && archived_at.nil?
+  end
+
+  # Another Devise's overwrite.
+  def inactive_message
+    archived_at.nil? ? super : :archived
+  end
 end
