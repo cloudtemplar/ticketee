@@ -1,24 +1,19 @@
-# README
+# Ticketee
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple ticket tracking app, which will serve me as a kind of reference.
+It is based on the original Ticketee app from [Rails 4 in Action book](https://www.manning.com/books/rails-4-in-action)
 
-Things you may want to cover:
+I've modified it to use Haml (which i love) and Postgres.
 
-* Ruby version
+The book is great, if you are starting with Rails, read it! It teaches you to use production-grade set of gems, such as: 
 
-* System dependencies
+* Capybara
+* RSpec
+* Bootstrap
+* Simple Form
+* Devise
+* Pundit
+* CarrierWave
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+It also shows how to use Heroku, Mailgun and Travis for deployment.
+Good stuff, learned so much from it.
