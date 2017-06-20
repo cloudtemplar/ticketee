@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature "Users can create new tickets" do
+RSpec.feature "Editors and managers can create new tickets" do
   let(:project) { FactoryGirl.create(:project, name: 'Internet Explorer') }
   let(:user) { FactoryGirl.create(:user) }
 
   before do
     login_as(user)
-    assign_role!(user, :viewer, project)
+    assign_role!(user, :editor, project)
     visit project_path(project)
     click_link 'New Ticket'
   end
