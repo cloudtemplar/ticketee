@@ -21,6 +21,8 @@ gem 'simple_form'
 gem 'devise'
 gem 'pundit'
 
+gem 'carrierwave', '~> 1.0'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
