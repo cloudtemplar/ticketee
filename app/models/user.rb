@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :roles
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -20,5 +21,9 @@ class User < ApplicationRecord
   # Another Devise's overwrite.
   def inactive_message
     archived_at.nil? ? super : :archived
+  end
+
+  def role_on(project)
+    roles.find_by(project_id: project).try(:name)
   end
 end

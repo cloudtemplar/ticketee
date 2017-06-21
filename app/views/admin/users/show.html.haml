@@ -7,3 +7,15 @@
       = link_to 'Archive User', [:archive, :admin, @user], method: :patch,
           class: 'delete',
           data: { confirm: 'Do you really want to archive this user?'}
+
+%header
+  %h2 Roles
+
+- if @user.roles.any?
+  %ul
+    - @user.roles.each do |role|
+      %li
+        = role.project.name + ':'
+        = role.role.titleize
+- else
+  %p This user has no roles
