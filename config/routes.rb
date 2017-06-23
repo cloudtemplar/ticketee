@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :attachments, only: :show
+  resources :attachments, only: [:show]
 
   resources :projects, except: [:new, :create, :destroy] do
     resources :tickets

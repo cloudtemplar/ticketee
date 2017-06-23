@@ -1,4 +1,6 @@
 class AttachmentsController < ApplicationController
+  skip_after_action :verify_authorized, only: [:new]
+
   def show
     attachment = Attachment.find(params[:id])
     authorize attachment, :show?

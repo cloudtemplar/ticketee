@@ -1,9 +1,11 @@
 = simple_form_for([project, ticket]) do |f|
   = f.input :name
   = f.input :description
-  %h3 Attachments
-  = f.simple_fields_for :attachments do |ff|
-    = ff.input :file, as: :file, label: "File ##{ff.index + 1}"
-    = ff.input :file_cache, as: :hidden
+  #fields
+    %h3 Attachments
+    - index = 0
+    = f.simple_fields_for :attachments do |builder|
+      = render partial: 'attachments/attachment', locals: { f: builder }
+    = link_to_add_field('Add another file', f, :attachments, class: 'add_field')
 
   = f.button :submit, class: 'btn btn-primary'

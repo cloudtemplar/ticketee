@@ -39,13 +39,13 @@ RSpec.feature "Editors and managers can create new tickets" do
     expect(page).to have_content 'Description is too short'
   end
 
-  scenario 'wtih multiple attachments' do
+  scenario 'wtih multiple attachments', js: true do
     fill_in 'Name', with: 'Add documentation for blink tag'
     fill_in 'Description', with: 'The blink tag has a speed attribute'
 
-    attach_file 'File #1', 'spec/fixtures/speed.txt'
-    attach_file 'File #2', 'spec/fixtures/spin.txt'
-    attach_file 'File #3', 'spec/fixtures/gradient.txt'
+    attach_file 'File #1', Rails.root.join('spec/fixtures/speed.txt')
+    click_link 'Add another file'
+    attach_file 'File #2', Rails.root.join('spec/fixtures/spin.txt')
 
     click_button 'Create Ticket'
 
@@ -54,7 +54,6 @@ RSpec.feature "Editors and managers can create new tickets" do
     within('#ticket .attachments') do
       expect(page).to have_content 'speed.txt'
       expect(page).to have_content 'spin.txt'
-      expect(page).to have_content 'gradient.txt'
     end
   end
 
