@@ -21,7 +21,7 @@
       %li= link_to 'New Ticket', new_project_ticket_path(@project), class: 'new'
 
 %ul#tickets
-  - @project.tickets.each do |ticket|
+  - @project.tickets.each_with_index do |ticket, idx|
     %li
-      \##{ticket.id} -
+      \##{idx + 1} -
       = link_to ticket.name, [@project, ticket]
