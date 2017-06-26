@@ -16,6 +16,7 @@ RSpec.describe TicketPolicy do
       it { is_expected.to_not permit_action :create }
       it { is_expected.to_not permit_action :update }
       it { is_expected.to_not permit_action :destroy }
+      it { is_expected.to_not permit_action :change_state }
     end
 
     context 'for viewers of the project' do
@@ -25,6 +26,7 @@ RSpec.describe TicketPolicy do
       it { is_expected.to_not permit_action :create }
       it { is_expected.to_not permit_action :update }
       it { is_expected.to_not permit_action :destroy }
+      it { is_expected.to_not permit_action :change_state }
     end
 
     context 'for editors of the project' do
@@ -39,6 +41,7 @@ RSpec.describe TicketPolicy do
         it { is_expected.to permit_action :update }
       end
       it { is_expected.to_not permit_action :destroy }
+      it { is_expected.to_not permit_action :change_state }
     end
 
     context 'for managers of the project' do
@@ -48,6 +51,7 @@ RSpec.describe TicketPolicy do
       it { is_expected.to permit_action :create }
       it { is_expected.to permit_action :update }
       it { is_expected.to permit_action :destroy }
+      it { is_expected.to permit_action :change_state }
     end
 
     context 'for managers of other projects' do
@@ -59,6 +63,7 @@ RSpec.describe TicketPolicy do
       it { is_expected.to_not permit_action :create }
       it { is_expected.to_not permit_action :update }
       it { is_expected.to_not permit_action :destroy }
+      it { is_expected.to_not permit_action :change_state }
     end
 
     context 'for administrators' do
@@ -68,6 +73,7 @@ RSpec.describe TicketPolicy do
       it { is_expected.to permit_action :create }
       it { is_expected.to permit_action :update }
       it { is_expected.to permit_action :destroy }
+      it { is_expected.to permit_action :change_state }
     end
   end
 end
