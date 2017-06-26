@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     resources :users do
       patch :archive, on: :member
     end
-    resources :states, only: [:index, :new, :create]
+    resources :states, only: [:index, :new, :create] do
+      member do
+        patch :make_default
+      end
+    end
   end
 
   resources :attachments, only: [:show]
