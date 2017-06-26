@@ -24,6 +24,10 @@
       %tr
         %th State:
         %td= render @ticket.state
+    - if @ticket.tags.any?
+      %tr#tags
+        %th Tags:
+        %td= render @ticket.tags
       
   = simple_format(@ticket.description)
   

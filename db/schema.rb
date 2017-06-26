@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626144532) do
+ActiveRecord::Schema.define(version: 20170626172131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,19 @@ ActiveRecord::Schema.define(version: 20170626144532) do
     t.boolean "default", default: false
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "ticket_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+    t.index ["ticket_id"], name: "index_taggings_on_ticket_id", using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -99,6 +112,8 @@ ActiveRecord::Schema.define(version: 20170626144532) do
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "roles", "projects"
   add_foreign_key "roles", "users"
+  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "tickets"
   add_foreign_key "tickets", "projects"
   add_foreign_key "tickets", "states"
   add_foreign_key "tickets", "users", column: "author_id"
