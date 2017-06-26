@@ -27,7 +27,7 @@
     - if @ticket.tags.any?
       %tr#tags
         %th Tags:
-        %td= render @ticket.tags
+        %td= render @ticket.tags, ticket: @ticket
       
   = simple_format(@ticket.description)
   
