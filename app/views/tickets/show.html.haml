@@ -20,6 +20,10 @@
     %tr
       %th Created:
       %td= time_ago_in_words(@ticket.created_at) + ' ago'
+    - if @ticket.state.present?
+      %tr
+        %th State:
+        %td= render @ticket.state
       
   = simple_format(@ticket.description)
   
