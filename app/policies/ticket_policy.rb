@@ -27,4 +27,8 @@ class TicketPolicy < ApplicationPolicy
     # Same clause as in the #destroy method.
     destroy?
   end
+
+  def tag?
+    destroy?
+  end
 end

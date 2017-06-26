@@ -37,8 +37,9 @@ end
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'selenium-webdriver'
+  gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'rspec-rainbow'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
