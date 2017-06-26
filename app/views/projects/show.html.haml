@@ -25,3 +25,4 @@
     %li
       \##{idx + 1} -
       = link_to ticket.name, [@project, ticket]
+      = render ticket.state if ticket.state

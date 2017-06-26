@@ -19,6 +19,17 @@
   }
 }
 
+#tickets li {
+  padding-bottom: 8px;
+}
+
 blockquote.comment p {
   font-size: 14px;
+}
+
+.state {
+  @extend .label;
+  font-size: 12px;
+  margin: 0 3px;
+  padding: 0.3em 0.6em;
 }
