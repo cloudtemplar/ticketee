@@ -21,7 +21,7 @@ The book is great, if you are starting with Rails, read it! It teaches you to us
 * Pundit
 * CarrierWave
 
-It also shows how to use Heroku, Mailgun and Travis for deployment.
+It also shows how to use Heroku, ~~Mailgun~~ Sendgrid and Travis for deployment.
 Good stuff, learned so much from it.
 
 ### How to use it
