@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   resources :attachments, only: [:show]
 
   resources :projects, except: [:new, :create, :destroy] do
-    resources :tickets
+    resources :tickets do
+      collection do
+        get :search
+      end
+    end
   end
 
   resources :tickets, only: [] do
