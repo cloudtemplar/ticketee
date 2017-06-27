@@ -1,5 +1,5 @@
 class Project < ApplicationRecord
-  has_many :tickets, dependent: :delete_all do
+  has_many :tickets, dependent: :destroy do
     def search(params)
       # If search query match pattern of e.g. 'tag:new'.
       if params =~ /\A\w+:\w+\z/

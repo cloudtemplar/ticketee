@@ -40,6 +40,7 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'rspec-rainbow'
+  gem 'email_spec'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
