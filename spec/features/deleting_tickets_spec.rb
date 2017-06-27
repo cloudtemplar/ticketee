@@ -17,4 +17,13 @@ RSpec.feature 'Managers and admins can delete tickets' do
     expect(page).to have_content 'Ticket has been deleted.'
     expect(page.current_url).to eq project_url(project)
   end
+
+  scenario 'with added tags' do
+    ticket.tags << Tag.create(name: 'iteration_1')
+
+    click_link 'Delete Ticket'
+
+    expect(page).to have_content 'Ticket has been deleted.'
+    expect(page.current_url).to eq project_url(project)
+  end
 end

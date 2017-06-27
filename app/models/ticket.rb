@@ -4,7 +4,7 @@ class Ticket < ApplicationRecord
   belongs_to :state, optional: true
   has_many :attachments, dependent: :destroy, inverse_of: :ticket
   has_many :comments, dependent: :destroy
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :ticket_watchings, dependent: :destroy
   has_many :watchers, through: :ticket_watchings, source: :user
