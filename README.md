@@ -1,5 +1,9 @@
 # Ticketee
 
+[![Build Status](https://travis-ci.org/cloudtemplar/ticketee.svg?branch=master)](https://travis-ci.org/cloudtemplar/ticketee)
+
+I added Travis badge for lulz. Looks cool!
+
 This is a simple ticket tracking app, which will serve me as a kind of reference.
 It is based on the original Ticketee app from [Rails 4 in Action book](https://www.manning.com/books/rails-4-in-action)
 
