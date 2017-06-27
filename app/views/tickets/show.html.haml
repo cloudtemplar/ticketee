@@ -28,6 +28,12 @@
       %tr#tags
         %th Tags:
         %td= render @ticket.tags, ticket: @ticket
+    %tr#watchers
+      %th Watchers:
+      %td
+        = toggle_watching_button(@ticket)
+        %br/
+        = @ticket.watchers.map(&:email).to_sentence
       
   = simple_format(@ticket.description)
   
