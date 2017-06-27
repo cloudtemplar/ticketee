@@ -1,14 +1,21 @@
 language: ruby
 rvm:
-  - 2.2.2
+- 2.2.2
 services:
-  - postgresql
+- postgresql
 env:
-  - DB=pgsql
+- DB=pgsql
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rake
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database myapp_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+- psql -c 'create database myapp_test;' -U postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: g8KB7o2a2/iATPk5JGnyHspylUjRXm97S7w9NGn5ySUKyXbsEwpDF05DUZt0NcbsM0x7grZ91mnFUCB4I1/q13NyG8UXUuKgErSpMzTu9+8Y+dClfgCv6Bg5WibjHfmqS4btoHLf2nVm/NZFIYhxQZVMytNvbonoPxTtOlWSdc3haYvfhFbGnbTW2KslBP3F3WN4VkkbkKGuTu+3yiVyxN0izoYQ8lI6WsqwS2INMGRJNIbDPQQMt2UELeEhpc0HqugmLruWIUF+3fJ/nDIC6/pZltmwj3Dl8M3KPL+auCLD6366ryWKaHQuBmGWG3YKvmwlzxhNB0TyYtn3fupi5+IKvv1cRYkE09S0AolVhnff13+kJeiqNbOXOjGyxX8TwCQx0oJ0yLKTzMJI7kgSCu6TU7qgEEfGA2+eNqF0AGDRzvcWq5mxwTy+sbU++qsyp2jAkjLO4VtjLFgTEk0haLf4cXhnBGcsM0Gvx/rSCt6SE4wf4y8vE+6GEltjZIFPc+anBq8zqpU+wilxgW6aqLPFsQgfjFYpNg9F5N7f3FJ+1lXp2wsHlfiA8DKj06xyDXZYTqEjz4JJZYLsKmw3DjhSEp6Sy6aPVQNKwZ8OVmtDX5T9OIx8+IdxDlRWBALTjxHG/krrR0URdSCAGwifQTUYKm5ee8rn/teNMMu3/DI=
+  app: shrouded-springs-69047
+  on:
+    repo: cloudtemplar/ticketee
