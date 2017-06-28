@@ -1,6 +1,6 @@
 class Ticket < ApplicationRecord
   belongs_to :project
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', optional: true
   belongs_to :state, optional: true
   has_many :attachments, dependent: :destroy, inverse_of: :ticket
   has_many :comments, dependent: :destroy

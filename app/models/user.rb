@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   scope :not_archived, -> { where(archived_at: nil) }
 
+  def generate_api_key
+    self.update_column(:api_key, SecureRandom.hex(16))
+  end
+
   def to_s
     "#{email} (#{admin? ? 'Admin' : 'User'})"
   end
