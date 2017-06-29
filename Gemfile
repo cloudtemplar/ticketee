@@ -22,6 +22,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'pundit'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'sinatra'
 
 gem 'carrierwave', '~> 1.0'
 
