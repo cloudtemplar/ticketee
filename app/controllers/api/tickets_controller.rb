@@ -17,6 +17,24 @@ class API::TicketsController < API::ApplicationController
     end
   end
 
+  def update
+    @ticket = @project.tickets.find(params[:id])
+    authorize @ticket, :update?
+
+    if @ticket.update(ticket_params)
+      head :no_content
+    else
+      render json: { errors: @ticket.errors.full_messages }, status: 422
+    end
+  end
+
+  def destroy
+    @ticket = @project.tickets.find(params[:id])
+    authorize @ticket, :destroy?
+    @ticket.destroy
+    head :no_content
+  end
+
   private
 
     def set_project

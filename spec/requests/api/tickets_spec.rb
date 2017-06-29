@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Tickets API" do
+RSpec.describe "Tickets API", type: :request do
   let(:user)    { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project) }
   let(:state)   { FactoryGirl.create(:state, name: "Open") }
@@ -19,8 +19,8 @@ RSpec.describe "Tickets API" do
     end
 
     it "retrieves a ticket's information" do
-      get api_project_ticket_path(project, ticket, format: :json),
-        {}, headers
+      get api_project_ticket_path(project, ticket),
+        params: { format: :json }, headers: headers
 
       expect(response.status).to eq 200
 
@@ -38,7 +38,7 @@ RSpec.describe "Tickets API" do
         }
       }
 
-      post api_project_tickets_path(project, params), {}, headers
+      post api_project_tickets_path(project), params: params, headers: headers
       expect(response.status).to eq 201
 
       json = ActiveModelSerializers::SerializableResource.new(Ticket.last, adapter: :json).to_json
@@ -54,7 +54,7 @@ RSpec.describe "Tickets API" do
         }
       }
 
-      post api_project_tickets_path(project, params), {}, headers
+      post api_project_tickets_path(project), params: params, headers: headers
 
       expect(response.status).to eq 422
       json = {
@@ -67,6 +67,42 @@ RSpec.describe "Tickets API" do
       expect(JSON.parse(response.body)).to eq json
     end
 
+    it 'can update a ticket' do
+      patch api_project_ticket_path(project, ticket), params: { ticket: { name: "Add RWD" } },
+        headers: headers
+      expect(response.status).to eq 204
+
+      expect(Ticket.find(ticket.id).name).to eq "Add RWD"
+    end
+
+    it "cannot update a ticket with invalid data" do
+      params = {
+        format: "json",
+        ticket: {
+          name: "",
+          description: ""
+        }
+      }
+
+      patch api_project_ticket_path(project, ticket), params: params, headers: headers
+
+      expect(response.status).to eq 422
+      json = {
+        "errors" => [
+          "Name can't be blank",
+          "Description can't be blank",
+          "Description is too short (minimum is 10 characters)"
+        ]
+      }
+      expect(JSON.parse(response.body)).to eq json
+    end
+
+    it 'can delete a ticket' do
+      delete api_project_ticket_path(project, ticket), params: { format: :json },
+        headers: headers
+      expect(response.status).to eq 204
+    end
+
     context "without permission to view the project" do
       before do
         user.roles.delete_all
@@ -74,7 +110,7 @@ RSpec.describe "Tickets API" do
 
       it 'responds with a 403' do
         get api_project_ticket_path(project, ticket, format: :json),
-          {}, headers
+          params: {}, headers: headers
         expect(response.status).to eq 403
         error = { "error" => "Unauthorized" }
         expect(JSON.parse(response.body)).to eq error
