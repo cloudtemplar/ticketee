@@ -4,7 +4,7 @@ RSpec.describe "Tickets API", type: :request do
   let(:user)    { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project) }
   let(:state)   { FactoryGirl.create(:state, name: "Open") }
-  let(:ticket) do
+  let!(:ticket) do
     FactoryGirl.create(:ticket, project: project, state: state)
   end
 
@@ -98,8 +98,12 @@ RSpec.describe "Tickets API", type: :request do
     end
 
     it 'can delete a ticket' do
-      delete api_project_ticket_path(project, ticket), params: { format: :json },
-        headers: headers
+      puts project.tickets.count
+      expect do
+        delete api_project_ticket_path(project, ticket), params: { format: :json },
+          headers: headers
+      end.to change(project.tickets, :count).by(-1)
+
       expect(response.status).to eq 204
     end
 
